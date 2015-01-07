@@ -35,7 +35,10 @@ bool native_authenticate(char *password) {
 
 // call args: <emu on/off> <runs>
 int main(int argc, char ** argv) {
-    if (argc != 3) return -1;
+    if (argc != 3) {
+        printf("Usage: %s [emu: 0/1] [runs]\n", argv[0]);
+        return -1;
+    }
     int emu = atoi(argv[1]);
     int runs = atoi(argv[2]);
     int i;

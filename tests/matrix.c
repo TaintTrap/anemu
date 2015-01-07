@@ -140,7 +140,10 @@ void matrix(int taintcount) {
 // call with two arguments: <emu on/off> <size>
 int main(int argc, char ** argv) {
     // printf("argc = %d\n", argc);
-    if (argc != 5) return -1;
+    if (argc != 5) {
+        printf("Usage: %s [emu: 0/1] [dimension] [runs] [taintcount]\n", argv[0]);
+        return -1;
+    }
     emu = atoi(argv[1]);
     dimension = atoi(argv[2]);
     runs = atoi(argv[3]);
