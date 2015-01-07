@@ -60,7 +60,7 @@
 #define TRACE_PATH "/sdcard/trace"
 
 #ifndef NO_TAINT
-# define TAINT_PC
+// # define TAINT_PC
 # define EMU_MEM_PREAD
 #else
 # define NO_MPROTECT
