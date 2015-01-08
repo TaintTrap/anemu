@@ -1187,17 +1187,15 @@ bool emu_advance_pc(emu_thread_t *emu) {
 #ifndef NDEBUG
     if (emu_debug()) {
         emu_dump_taintpages();
-        LOGI("[s] mem read vs tainted: %d %d (%2.1f%%)\n",
+        LOGI("[s] mem read vs tainted: %d %d\n",
              COUNTER(mem_read),
-             COUNTER(taint_mem_read),
-             COUNTER(taint_mem_read) / (double)COUNTER(mem_read) * 100
+             COUNTER(taint_mem_read)
              );
-        LOGI("[s] mem write vs tainted: %d %d (%2.1f%%)\n",
+        LOGI("[s] mem write vs tainted: %d %d\n",
              COUNTER(mem_write),
-             COUNTER(taint_mem_write),
-             COUNTER(taint_mem_write) / (double)COUNTER(mem_write) * 100
+             COUNTER(taint_mem_write)
              );
-        LOGI("[s] taint instr reg (set/unset): %d / %d mem (set/unset): %d / %d total %%: %-2.1f\n",
+        LOGI("[s] taint instr reg (set/unset): %d / %d mem (set/unset): %d / %d\n",
              COUNTER(taint_instr_set),
              COUNTER(taint_instr_unset),
              COUNTER(taint_instr_mem_set),
