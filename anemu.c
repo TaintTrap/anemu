@@ -2572,9 +2572,10 @@ emu_set_taint_array(uint32_t addr, uint32_t tag, uint32_t length) {
     // TODO: taintmap and type [STACK/LIB] can be looked up once and cached
     taintmap_t *taintmap = emu_get_taintmap(addr);
     uint32_t p;
-    for (p = Align(addr,4); p < (addr + length); p += PAGE_SIZE) {
+    for (p = Align(addr, PAGE_SIZE); p < (addr + length); p += PAGE_SIZE) {
         taintpage_t *tp = emu_get_taintpage(p);
         if (!(*tp == 0 && tag == TAINT_CLEAR)) {
+            uint32_t p_start;
             uint32_t p_end;
             // safety check if current page would cross the taint array end
             if (p + PAGE_SIZE < (addr + length)) {
@@ -2582,9 +2583,16 @@ emu_set_taint_array(uint32_t addr, uint32_t tag, uint32_t length) {
             } else {
                 p_end = addr + length;
             }
+
+            if (p < addr) {
+                p_start = Align(addr, 4);
+            } else {
+                p_start = p;
+            }
+
             uint32_t x;
             int16_t increment = 0;
-            for (x = p; x < p_end; x+=4) {
+            for (x = p_start; x < p_end; x+=4) {
                 uint32_t offset = (x - taintmap->start) >> 2;
                 // emu_log_debug("p: %x x: %x offset: %x\n", p, x, offset);
                 bool update = false;
